@@ -1,0 +1,96 @@
+// Variables
+$fs-factors: 0.25, 0.375, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2;
+
+h1, h2, h3, h4, h5, h6, 
+p,
+.fs-var {
+  --fs-min: 1rem;
+  --fs-val: 2vw;
+  --fs-max: 1.15rem;
+  font-size: clamp(
+    calc((var(--fs-min) * var(--fs-min-fac, 1)) * var(--fs-fac, 1)),
+    calc((var(--fs-val) * var(--fs-val-fac, 1)) * var(--fs-fac, 1)),
+    calc((var(--fs-max) * var(--fs-max-fac, 1)) * var(--fs-fac, 1))
+  );
+  margin-top: 0;
+  margin-bottom: clamp(
+    calc(((var(--fs-min) * var(--fs-min-fac, 1)) * var(--fs-fac, 1)) / 2),
+    calc(((var(--fs-val) * var(--fs-val-fac, 1)) * var(--fs-fac, 1)) / 2),
+    calc(((var(--fs-max) * var(--fs-max-fac, 1)) * var(--fs-fac, 1)) / 2)
+  );
+}
+
+h1 {
+  --fs-max: 5.5rem;
+  --fs-min: 2.5rem;
+  --fs-val: 4.5vw;
+}
+
+h2 {
+  --fs-max: 4.5rem;
+  --fs-min: 2.25rem;
+  --fs-val: 4vw;
+}
+
+h3 {
+  --fs-max: 3.5rem;
+  --fs-min: 2rem;
+  --fs-val: 3.5vw;
+}
+
+h4 {
+  --fs-max: 2.5rem;
+  --fs-min: 1.5rem;
+  --fs-val: 3vw;
+}
+
+h5 {
+  --fs-max: 1.75rem;
+  --fs-min: 1.25rem;
+  --fs-val: 2.5vw;
+}
+
+h6 {
+  --fs-min: 1.1rem;
+  --fs-max: 0.95rem;
+}
+
+p {
+  --fs-val: 1.75vw;
+}
+
+ul, ol {
+  --fs-max: 1.15rem;
+  --fs-min: 0.95rem;
+  --fs-val: 1.5vw;
+}
+
+.lead {
+  --fs-fac: 1.15;
+}
+
+// String replace from: https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }  
+  @return $string;
+}
+
+// Generate classes
+$fs-types: "max", "min", "val";
+@each $factor in $fs-factors {
+  $number: str-replace('' + $factor, ".", "\\.");
+  .fs-fac-#{$number} {
+      --fs-fac: #{$factor};  
+  }
+}
+@each $type in $fs-types {
+  @each $factor in $fs-factors {
+    $number: str-replace('' + $factor, ".", "\\.");
+    .fs-#{$type}-fac-#{$number} {
+      --fs-#{$type}-fac: #{$factor};  
+    }
+  }
+}
