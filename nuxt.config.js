@@ -11,7 +11,7 @@ export default {
 	},
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: 'Responsive Font Size System - Derian André',
+		title: 'Responsive Font Size System - @DerianAndre',
 		meta: [
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 		],

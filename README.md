@@ -1,5 +1,5 @@
 # Responsive Font Size System
-
+A simple but powerful responsive font size system for SASS
 ## Build Setup
 
 ```bash

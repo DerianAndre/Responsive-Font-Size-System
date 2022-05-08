@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "ISC",
-  "description": "A simple but powerful responsive font size system",
+  "description": "A simple but powerful responsive font size system for SASS",
 	"author": {
 		"name": "Derian Castillo",
 		"email": "hola@derianandre.com",
